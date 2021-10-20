@@ -18,7 +18,7 @@ Widget textform(
                 ? TextInputType.emailAddress
                 : TextInputType.text,
     decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(20),
+        contentPadding: EdgeInsets.all(15),
         border: InputBorder.none,
         hintText: hint,
         isDense: true,
@@ -33,9 +33,9 @@ Widget textform(
             ? emailvalidator
             : validation == "number"
                 ? numbervalidator
-                : {},
-    expands: true,
-    maxLines: null,
+                : defaultvalidation,
+    // expands: true,
+    maxLines: 1,
     minLines: null,
     onChanged: (value) {
       function(value);
@@ -72,5 +72,9 @@ String emailvalidator(String value) {
 }
 
 String numbervalidator(String value) {
+  return value;
+}
+
+String defaultvalidation(String value) {
   return value;
 }

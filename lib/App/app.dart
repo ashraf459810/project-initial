@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smartcart/Ui/HomePage/HomePage.dart';
+import 'package:smartcart/Ui/Splash/Splash.dart';
 
 import 'AppLocalizations.dart';
 
@@ -69,7 +71,15 @@ class _MyAppState extends State<MyApp> {
                 );
               },
 
-              home: Container(),
+              home: Splash(),
             ));
   }
+}
+
+double h(double h) {
+  return ScreenUtil().setHeight(h);
+}
+
+double w(double w) {
+  return ScreenUtil().setWidth(w);
 }
