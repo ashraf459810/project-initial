@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:smartcart/App/app.dart';
-import 'package:smartcart/Ui/HomePage/HomePage.dart';
+
+import 'package:smartcart/Ui/Login/Login.dart';
 import 'package:smartcart/Widgets/Nav.dart';
 import 'package:smartcart/Widgets/Text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +20,7 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
     Timer timer = Timer(Duration(seconds: 3), () {
-      navWithReplaceAll(context, HomePage());
+      navWithReplaceAll(context, Login());
     });
     timer.isActive;
   }
@@ -29,36 +30,37 @@ class _SplashState extends State<Splash> {
     return Scaffold(
       body: Container(
         color: Colors.white,
-        height: h(800),
-        width: w(380),
-        child: Stack(
-          children: [
-            Center(
-              child: Container(
-                height: h(170),
-                width: w(370),
-                child: Center(
-                  child: Image.asset(
-                    "assets/images/baytona.jpeg",
-                    fit: BoxFit.cover,
+        height: h(812),
+        width: w(375),
+        child: Center(
+          child: Stack(
+            children: [
+              Center(
+                child: Container(
+                  height: h(170),
+                  width: w(370),
+                  child: Center(
+                    child: Image.asset(
+                      "assets/images/logo.jpeg",
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
-            ),
-            Positioned(
-                bottom: 260,
-                left: 150,
-                child: Opacity(
-                  opacity: 0.9,
+              Positioned(
+                  bottom: 260,
                   child: Container(
-                    child: text(
-                        text: "Baytona",
-                        color: Colors.orange,
-                        fontsize: 26.sp,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ))
-          ],
+                    width: w(370),
+                    child: Center(
+                      child: text(
+                          text: "3AQAR",
+                          color: Colors.blue[800],
+                          fontsize: 26.sp,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ))
+            ],
+          ),
         ),
       ),
     );

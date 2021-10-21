@@ -9,6 +9,7 @@ Widget textform(
     double hintsize,
     String validation}) {
   return TextFormField(
+    style: TextStyle(color: Colors.white),
     obscureText: validation == "password" ? true : false,
     keyboardType: validation == "number"
         ? TextInputType.phone

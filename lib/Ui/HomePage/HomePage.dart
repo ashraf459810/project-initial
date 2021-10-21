@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:smartcart/App/app.dart';
+import 'package:smartcart/Ui/EstateDetails/EstateDetails.dart';
 import 'package:smartcart/Ui/Search.dart';
 import 'package:smartcart/Widgets/Container.dart';
 import 'package:smartcart/Widgets/Dropdown.dart';
@@ -15,14 +16,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<String> sortOptions = [
+    "Newest",
+    "pricing hight to low",
+    "pricing low to hight"
+  ];
+  int iscolored = 0;
   ScrollController controller = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70),
+        preferredSize: Size.fromHeight(h(70)),
         child: AppBar(
-          backgroundColor: Colors.orangeAccent[400],
+          backgroundColor: Colors.blue[800],
           automaticallyImplyLeading: false,
           actions: [
             Padding(
@@ -40,7 +47,10 @@ class _HomePageState extends State<HomePage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            text(text: "   Search", color: Colors.black),
+                            text(
+                                text: "   Search",
+                                color: Colors.black,
+                                fontsize: 16),
                             Padding(
                               padding: const EdgeInsets.only(right: 8.0),
                               child: Icon(
@@ -71,64 +81,67 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: Container(
+        // color: Colors.red,
+        height: h(812),
         child: Column(
           children: [
             SizedBox(
               height: h(10),
             ),
-            Container(
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  container(
-                    hight: h(30),
-                    width: w(100),
-                    child: DropDown(
-                      list: ["Buy", "Rent"],
-                      onchanged: (va) {},
-                      getindex: (val) {},
-                      hint: "Buy",
-                    ),
-                  )
-                ],
-              ),
+            Row(
+              children: [
+                container(
+                  hight: h(30),
+                  width: w(100),
+                  child: DropDown(
+                    list: ["Buy", "Rent"],
+                    onchanged: (va) {},
+                    getindex: (val) {},
+                    hint: "Buy",
+                  ),
+                ),
+              ],
             ),
             container(
-                hight: h(600),
+                hight: h(637),
                 child: ListView.builder(
                   controller: controller,
                   itemCount: 10,
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: Card(
-                        child: container(
-                            hight: h(350),
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/house.jpeg",
-                                    height: h(200),
-                                    width: w(400),
-                                    fit: BoxFit.cover,
-                                  ),
-                                  SizedBox(
-                                    height: h(7),
-                                  ),
-                                  attributesIcons(),
-                                  SizedBox(
-                                    height: h(3),
-                                  ),
-                                  attributesvalues(),
-                                  SizedBox(
-                                    height: h(10),
-                                  ),
-                                  attributesdescription()
-                                ],
-                              ),
-                            )),
+                    return InkWell(
+                      onTap: () {
+                        nav(context, EstateDetails());
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Card(
+                          child: container(
+                              hight: h(350),
+                              child: Center(
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/house.jpeg",
+                                      height: h(200),
+                                      width: w(400),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    SizedBox(
+                                      height: h(7),
+                                    ),
+                                    attributesIcons(),
+                                    SizedBox(
+                                      height: h(3),
+                                    ),
+                                    attributesvalues(),
+                                    SizedBox(
+                                      height: h(10),
+                                    ),
+                                    attributesdescription(),
+                                  ],
+                                ),
+                              )),
+                        ),
                       ),
                     );
                   },
@@ -188,11 +201,13 @@ class _HomePageState extends State<HomePage> {
         children: [
           Container(
               width: w(70),
-              child: text(
-                  text: "(negotiable)",
-                  fontsize: 12,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold)),
+              child: Center(
+                child: text(
+                    text: "(negotiable)",
+                    fontsize: 12,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold),
+              )),
           Container(
               width: w(50),
               child: text(
@@ -259,55 +274,55 @@ class _HomePageState extends State<HomePage> {
   Future<void> sortDialog() async {
     return showDialog<void>(
       context: context,
+
       barrierDismissible: true, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Center(child: const Text('select Sort By')),
-          content: SingleChildScrollView(
-            child: Container(
+          contentPadding: EdgeInsets.all(1),
+          title: Center(child: const Text('Sort By')),
+          content: Container(
               height: h(150),
-              width: w(200),
-              child: ListView(
-                padding: EdgeInsets.all(10),
-                children: <Widget>[
-                  container(
-                    hight: h(30),
-                    borderRadius: 10,
-                    color: Colors.grey,
-                    child: Text(
-                      'Price hight to low',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                  ),
-                  SizedBox(height: h(7)),
-                  container(
-                    hight: h(30),
-                    borderRadius: 10,
-                    color: Colors.grey,
-                    child: Text('Price low to hight',
-                        style: TextStyle(color: Colors.white, fontSize: 18)),
-                  ),
-                  SizedBox(height: h(7)),
-                  container(
-                    hight: h(30),
-                    borderRadius: 10,
-                    color: Colors.grey,
-                    child: Text("newest listing",
-                        style: TextStyle(color: Colors.white, fontSize: 18)),
-                  ),
-                  SizedBox(height: h(7)),
-                ],
-              ),
-            ),
-          ),
-          // actions: <Widget>[
-          //   TextButton(
-          //     child: const Text('Approve'),
-          //     onPressed: () {
-          //       Navigator.of(context).pop();
-          //     },
-          //   ),
-          // ],
+              width: w(100),
+              child: Center(
+                child: ListView.builder(
+                  // padding: EdgeInsets.all(20),
+                  itemCount: sortOptions.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          iscolored = index;
+                        });
+                        Navigator.of(context).pop();
+                      },
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              container(
+                                hight: h(30),
+                                borderRadius: 10,
+                                child: Text(
+                                  '${sortOptions[index]}',
+                                  style: TextStyle(
+                                      color: iscolored != index
+                                          ? Colors.black87
+                                          : Colors.orangeAccent,
+                                      fontSize: 14),
+                                ),
+                              ),
+                            ],
+                          ),
+                          container(
+                              hight: h(1),
+                              width: w(280),
+                              color: Colors.grey[300])
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              )),
         );
       },
     );

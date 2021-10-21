@@ -21,11 +21,12 @@ class _SearchState extends State<Search> {
     Bedrooms(Colors.white, 6),
   ];
   String furnishe;
-  bool isbuy = true;
+  bool isbuy = false;
   bool isoffice = false;
   String city;
   String probertyType;
   String hood;
+  bool isshop = false;
   RangeValues currentRangeValuesforbuy = const RangeValues(100, 500);
   RangeValues currentRangeValuesforrent = RangeValues(100, 500);
   @override
@@ -34,7 +35,7 @@ class _SearchState extends State<Search> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(70),
         child: AppBar(
-          backgroundColor: Colors.orangeAccent[400],
+          backgroundColor: Colors.blue[800],
           actions: [
             container(
               color: Colors.transparent,
@@ -72,7 +73,7 @@ class _SearchState extends State<Search> {
                         hight: h(50),
                         width: w(70),
                         color: Colors.white,
-                        bordercolor: isbuy ? Colors.orange : Colors.transparent,
+                        bordercolor: isbuy ? Colors.blue : Colors.transparent,
                         borderRadius: 6,
                         child: text(text: "Buy")),
                   ),
@@ -85,8 +86,7 @@ class _SearchState extends State<Search> {
                         hight: h(50),
                         width: w(70),
                         color: Colors.white,
-                        bordercolor:
-                            !isbuy ? Colors.orange : Colors.transparent,
+                        bordercolor: !isbuy ? Colors.blue : Colors.transparent,
                         borderRadius: 6,
                         child: text(text: "Rent")),
                   )
@@ -153,8 +153,15 @@ class _SearchState extends State<Search> {
                     list: ["office", "house", "shop"],
                     hint: "select proberty type",
                     onchanged: (val) {
-                      val == "office" ? isoffice = true : isoffice = false;
-                      probertyType = val;
+                      if (val == "office" || val == "shop") {
+                        isshop = true;
+                        isoffice = true;
+                        probertyType = val;
+                      } else {
+                        isshop = false;
+                        isoffice = false;
+                        probertyType = val;
+                      }
                       setState(() {});
                     },
                     getindex: (val) {},
@@ -164,7 +171,7 @@ class _SearchState extends State<Search> {
               SizedBox(
                 height: h(50),
               ),
-              !isoffice
+              !isoffice || !isshop
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -189,11 +196,12 @@ class _SearchState extends State<Search> {
                                   child: GestureDetector(
                                     onTap: () {
                                       if (bedrooms[index].color ==
-                                          Colors.transparent)
-                                        bedrooms[index].color = Colors.orange;
-                                      else
+                                          Colors.blue) {
                                         bedrooms[index].color =
                                             Colors.transparent;
+                                      } else {
+                                        bedrooms[index].color = Colors.blue;
+                                      }
                                       setState(() {});
                                     },
                                     child: container(
@@ -229,7 +237,7 @@ class _SearchState extends State<Search> {
               Container(
                 height: h(60),
                 child: RangeSlider(
-                  activeColor: Colors.orange,
+                  activeColor: Colors.blue,
                   values: isbuy
                       ? currentRangeValuesforbuy
                       : currentRangeValuesforrent,
@@ -284,10 +292,9 @@ class _SearchState extends State<Search> {
                 height: h(40),
               ),
               container(
-                  color: Colors.orangeAccent[400],
-                  borderRadius: 10,
+                  color: Colors.blue[400],
                   hight: h(60),
-                  width: w(400),
+                  width: MediaQuery.of(context).size.width,
                   child: Center(
                       child: text(
                           text: "Search", color: Colors.white, fontsize: 25)))

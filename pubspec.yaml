@@ -79,6 +79,7 @@ dependencies:
   flutter_swiper: ^1.1.6
   flutter_tags: ^0.4.9+1
   http: ^0.13.2
+  carousel_slider : ^2.2.1
   firebase_core: ^1.2.1
   google_sign_in: ^4.5.3
   pin_code_text_field: ^1.8.0
